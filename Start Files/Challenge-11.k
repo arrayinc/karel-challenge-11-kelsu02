@@ -20,10 +20,54 @@ as tall as it is wide.
 
 • If the width of the world is odd, Karel must put the beeper in the
 center square. If the width is even, Karel may drop the beeper on either
-of the two center squares.
-
+of the two center squares. 
 • It does not matter which direction Karel is facing at the end of the run.
 
 There are many different algorithms you can use to solve this problem. The 
 interesting challenge is to come up with a strategy that works.
 */
+
+import "turns";
+
+function moveToWall() {
+	while(frontIsClear()) {
+		move();
+	}
+}
+
+function getBeepers() {
+	while(beepersPresent()) {
+		move();
+	}
+	turnAround();
+	move();
+	pickBeeper();
+	move();
+}
+
+function moveToCenter() {
+	while (frontIsClear()) {
+		putBeeper();
+		move();
+	}
+	putBeeper();
+	turnAround();
+	pickBeeper();
+	moveToWall();
+	pickBeeper();
+	turnAround();
+	move();
+	while (beepersPresent()) {
+		getBeepers();
+	}
+}
+
+
+function Solve(){
+	moveToCenter();
+	turnAround();
+	move();
+	putBeeper();
+}
+	
+
